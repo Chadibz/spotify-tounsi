@@ -1,14 +1,24 @@
-import { StyleSheet ,Text, View} from 'react-native';
+import { FlatList, StyleSheet ,Text, View} from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import Colors from '../constants/Colors';
-
+import AlbumCategory from '../components/AlbumCategory';
 import { RootTabScreenProps } from '../types';
+import albumCategories from '../data/albumCategories';
+
+
+
 
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
-    <Text style={{color:'white'}}>Hello</Text>
+<FlatList 
+data={albumCategories}
+renderItem={({item})=>
+(<AlbumCategory title={item.title} albums={item.albums}/>)}
+keyExtractor={(item)=>item.id}
+/>
+  
     </View>
   );
 }
