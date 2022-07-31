@@ -5,6 +5,7 @@ import Colors from '../constants/Colors';
 import AlbumCategory from '../components/AlbumCategory';
 import { RootTabScreenProps } from '../types';
 import albumCategories from '../data/albumCategories';
+import React from 'react';
 
 
 

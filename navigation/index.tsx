@@ -19,6 +19,8 @@ import TabTwoScreen from '../screens/TabTwoScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 import AlbumScreen from '../screens/AlbumScreen';
+import { createStackNavigator } from '@react-navigation/stack';
+
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -40,8 +42,9 @@ function RootNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
-      <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Screen name="AlbumScreen" component={AlbumScreen} options={{ title: 'Album'}} />
+      <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
+      
     
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
@@ -72,6 +75,7 @@ function BottomTabNavigator() {
           tabBarIcon: ({ color }) => <Entypo name="home" size={30} style={{ marginBottom: -3 }} color={color} />,
         }}
       />
+      
       <BottomTab.Screen
         name="search"
         component={TabTwoScreen}
@@ -80,7 +84,7 @@ function BottomTabNavigator() {
           tabBarIcon: ({ color }) => <EvilIcons name="search" size={30} style={{ marginBottom: -3 }} color={color}  />,
         }}
       />
-      <BottomTab.Screen
+      <BottomTab.Screen 
         name="library"
         component={TabTwoScreen}
         options={{
@@ -98,6 +102,8 @@ function BottomTabNavigator() {
       />
       
     </BottomTab.Navigator>
+
+    
   );
 }
 
@@ -110,3 +116,6 @@ function TabBarIcon(props: {
 }) {
   return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
 }
+
+
+
