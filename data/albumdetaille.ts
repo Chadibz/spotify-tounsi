@@ -2,7 +2,7 @@ export default {
     id :'1',
     name :'Oh ya ALEM',
     by:'Spotify',
-    numberOflikes: 30,
+    numberOflikes: '30K likes',
     imageurl :'https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/602f4731226337.5646928c3633f.jpg',
 artistHeadline:'SAMARA',
 songs: [

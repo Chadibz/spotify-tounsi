@@ -3,6 +3,8 @@ import React, { useEffect } from "react";
 import { View,Text, FlatList } from 'react-native' ;
 import albumdetaille from "../data/albumdetaille";
  import SongItemList from "../components/SongItemList";
+ import AlbumHeader from "../components/AlbumHeader";
+
 
 
 
@@ -15,13 +17,16 @@ const AlbumScreen =()=>{
 
     return (
     <View>
-        <Text style={{color:'white'}}>HELLo</Text>
+      
        
         <FlatList
         data={albumdetaille.songs}
         renderItem={({item})=><SongItemList song={item}/>}
         keyExtractor={(item)=>item.id}
+        ListHeaderComponent={()=> <AlbumHeader album={albumdetaille}/>}
         />
     </View>)
 }
+
 export default AlbumScreen;
+
