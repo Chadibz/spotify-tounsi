@@ -8,10 +8,9 @@ import { Audio } from "expo-av";
 import { useState } from "react";
 
 
-
 const song={
     id:'1',
-    uri:'https://storage.googleapis.com/synchedin-storage/public/tracks/GX5MY2166332/GX5MY2166332.mp3',
+    uri:'https://cdn1.esm3.com/music/4558/m298181.mp3',
     imageurl :'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/pride-album-cover-art-design-template-d2bf21df8ead7742d0af24f0143097df_screen.jpg?ts=1596467888',
     title:'what they want',
     artist:'RUSS'
@@ -22,7 +21,12 @@ const song={
 const onPlaybackStatusUpdate=(status)=>{console.log(status);}
 
     const playCurrentSong= async()=>{
-const {sound:newSound}=await Sound.createAsync({uri:song.uri},
+if(sound){
+    await sound.unloadAsync();
+}
+
+const {sound:newSound}=await Audio.Sound.createAsync(
+     {uri:song.uri},
     {shouldPlay:true},
     onPlaybackStatusUpdate
     )
@@ -30,9 +34,12 @@ const {sound:newSound}=await Sound.createAsync({uri:song.uri},
     }
 
   useEffect(()=>{
-playCurrentSong
+playCurrentSong();
   },[])
+const onPlayPausePress=()=>{
 
+    
+}
 return (
     <View style={styles.container}>
          <Image source={{uri:song.imageurl}} style={styles.image }/>
