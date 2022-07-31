@@ -5,6 +5,9 @@ import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 
+import PlayerWidget from './components/palyerWidget';
+import React from 'react';
+
 export default function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
@@ -13,9 +16,12 @@ export default function App() {
     return null;
   } else {
     return (
+      
       <SafeAreaProvider>
         <Navigation colorScheme={colorScheme} />
+        <PlayerWidget/>
         <StatusBar />
+        
       </SafeAreaProvider>
     );
   }
