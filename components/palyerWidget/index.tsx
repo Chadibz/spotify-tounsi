@@ -1,5 +1,5 @@
 import React from "react";
- import { Text ,View, Image} from 'react-native';
+ import { Text ,View, Image, Touchable, TouchableOpacity} from 'react-native';
  import { AntDesign, FontAwesome } from "@expo/vector-icons";
 import { Song } from "../../types";
 import styles from "./styles";
@@ -17,8 +17,18 @@ const song={
 }
 
  const PlayerWidget =() =>{
-    const [sound,setSound]=useState<Sound|null>(null)
-const onPlaybackStatusUpdate=(status)=>{console.log(status);}
+    const [sound,setSound]=useState<Sound|null>(null);
+    const [isPlaying,setIsPlaying] =useState<boolean>(true);
+    const [duration,setDuration]=useState<number|null>(null);
+    const [position,setPosition]=useState<number|null>(null);
+
+const onPlaybackStatusUpdate=(status)=>{
+    setIsPlaying(status.isPlaying);
+    setDuration(status.durationMillis);
+    setPosition(status.positionMillis);
+    
+    
+    }
 
     const playCurrentSong= async()=>{
 if(sound){
@@ -27,7 +37,7 @@ if(sound){
 
 const {sound:newSound}=await Audio.Sound.createAsync(
      {uri:song.uri},
-    {shouldPlay:true},
+    {shouldPlay:isPlaying},
     onPlaybackStatusUpdate
     )
     setSound(newSound)
@@ -36,14 +46,31 @@ const {sound:newSound}=await Audio.Sound.createAsync(
   useEffect(()=>{
 playCurrentSong();
   },[])
-const onPlayPausePress=()=>{
+const onPlayPausePress= async ()=>{
+if (!sound){
+    return;
+}
+if (isPlaying){
+    await sound.stopAsync()
+} else {
+    await sound.playAsync();
+}
+
 
     
 }
+const getProgress=()=>{
+    if(sound==null || duration==null ||position==null){
+            return 0;
+    }
+    return(position/duration)*100;
+}
 return (
     <View style={styles.container}>
-         <Image source={{uri:song.imageurl}} style={styles.image }/>
+        <View style={[styles.Progress,{width:`${getProgress()}%`},]}  />
 
+        <View style={styles.row}>
+         <Image source={{uri:song.imageurl}} style={styles.image }/>
          <View style={styles.containerRight}>
         <View style={styles.namecontainer}>
 
@@ -52,8 +79,11 @@ return (
 </View> 
 <View style={styles.iconcontainer}>
 <AntDesign name="hearto" size={30} color={"white"}/>
-<FontAwesome  name="play" size={30} color={"white"}/>
+<TouchableOpacity onPress={onPlayPausePress}>
+<FontAwesome  name={isPlaying ? 'pause':'play'} size={30} color={"white"}/>
+</TouchableOpacity>
 </View> 
+</View>
 </View>
     </View>
 )

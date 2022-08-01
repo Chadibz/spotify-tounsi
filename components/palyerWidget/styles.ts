@@ -4,13 +4,13 @@ const styles = StyleSheet.create({
    container:{
     position:'absolute',
     bottom:39,
-    flexDirection:'row',
+ 
     backgroundColor:'#131313',
     marginBottom :10,
     width:'100%',
     borderWidth:2,
     borderColor:'black',
-    alignItems:'center',
+   
    },
     title:{
         color:'white',
@@ -44,5 +44,13 @@ alignItems:'center'
         width:100,
         justifyContent:'space-around',
     },
+    Progress:{
+height:3,
+
+backgroundColor:'white',
+    },
+    row:{
+        flexDirection:'row'
+    }
 })
 export default styles;
